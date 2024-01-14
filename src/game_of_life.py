@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 
 ######################################## test ##################################################
@@ -96,6 +98,30 @@ def update(grid: np.ndarray[bool],) -> np.ndarray[bool]:
     return new_grid
 
 
+def vizualize(
+        size: int,
+        cond_init: list[tuple[int, int]],
+        n_times: int,
+) -> None:
+    grid_empty = create_grid(size=size)
+    grid_init = initialize_grid(grid=grid_empty,
+                                cond_init=cond_init)
+    grid = grid_init
+    ims = []
+    fig, ax = plt.subplots()
+    for t in range(n_times):
+        # ax.set_title("timestamp t = " + str(t))
+        ax.imshow(grid, cmap='gray')
+        im = plt.imshow(grid, animated=True)
+        if t == 0:
+            ax.imshow(grid)
+        ims.append([im])
+        grid = update(grid=grid)
+    ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
+                                    repeat_delay=1000)
+    plt.show()
+
+
 if __name__ == "__main__":
     print("hello")
     size = 10
@@ -106,3 +132,5 @@ if __name__ == "__main__":
                                 cond_init=cond_init)
     test_grid(grid_init)
     test_update()
+    cond_init = [(5, 5), (6, 5), (7, 5)]
+    vizualize(size=10, cond_init=cond_init, n_times=60)
