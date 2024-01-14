@@ -132,5 +132,7 @@ if __name__ == "__main__":
                                 cond_init=cond_init)
     test_grid(grid_init)
     test_update()
+    # r-pentomino
+    # https://cs.stanford.edu/people/eroberts/courses/soco/projects/2001-02/cellular-automata/walks%20of%20life/patterns2.html
     cond_init = [(50, 50), (50, 49), (50, 51), (49, 50), (51, 51)]
     vizualize(size=100, cond_init=cond_init, n_times=60)
